@@ -2,9 +2,10 @@
   "name": "assignment1-backend",
   "version": "1.0.0",
   "description": "Node backend for CSC301 assignment 1 calculator application.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js"
   },
   "author": "Zachary Vincze",
   "license": "ISC",
