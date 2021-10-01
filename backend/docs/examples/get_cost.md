@@ -2,9 +2,13 @@
 Used to calculate the total cost of items in user's cart (including GST).
 
 **URL** : `/get_cost/`
+
 **Method** : `GET`
+
 **Auth** : `NO`
+
 **Data Constraints**
+
 ```json
 {
     "checkout": [
@@ -19,6 +23,7 @@ Used to calculate the total cost of items in user's cart (including GST).
 ```
 
 **Data Example**
+
 ```json
 {
     "checkout": [
@@ -35,7 +40,9 @@ Used to calculate the total cost of items in user's cart (including GST).
 ```
 ## Success Response
 **Code** : `200 OK`
+
 **Content Example**
+
 ```json
 {
     "cost": "19.21"
@@ -44,7 +51,9 @@ Used to calculate the total cost of items in user's cart (including GST).
 
 ## Error Response
 **Condition** : Requested item does not exist in list. Quantity is not a valid number.
+
 **Code** : `400 BAD REQUEST`
+
 **Content**
 ```json
 {
