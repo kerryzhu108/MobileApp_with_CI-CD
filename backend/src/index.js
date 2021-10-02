@@ -18,4 +18,4 @@ app.use(bodyParser.json());
 app.use("/get_cost", get_cost);
 
 // Application start
-app.listen(port, application_start);
+app.listen(process.env.PORT || port, application_start);
