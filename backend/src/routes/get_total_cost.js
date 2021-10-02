@@ -4,9 +4,13 @@ var functions = require("./../functions/get_cost");
 
 var router = express.Router();
 
+const GST = 0.13;
+
 // Get total cost of items in checkout cart.
 router.post("/",
-    body('item').isString(),
+    body('checkout').isArray(),
+    body('checkout.*.item').isString(),
+    body('checkout.*.quantity').isInt(),
     function (req, res) {
 
         const errors = validationResult(req);
@@ -14,14 +18,14 @@ router.post("/",
             return res.status(422).json({ errors: errors.array() });
         }
 
-        var cost;
+        var total_cost;
         try {
-            cost = functions.get_cost(req.body.item);
+            total_cost = functions.calculate_total_cost(req.body.checkout, GST);
         } catch (error) {
-            return res.status(400).json({ errors: { message: error } });
+            return res.status(400).json({ errors: { message: error } })
         }
 
-        return res.json({ cost: cost.toFixed(2) });
+        return res.json({ cost: total_cost.toFixed(2) });
     });
 
 module.exports = router
