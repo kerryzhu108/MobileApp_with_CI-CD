@@ -19,6 +19,7 @@ workflows:
       - run_tests
       - heroku/deploy-via-git:
           branch: production
+          force: true
           filters:
               branches:
                 only:
