@@ -12,15 +12,25 @@ jobs:
           steps:
             - run: cd backend && npm install
       - run: cd backend && npm run test
+  deploy_frontend:
+    docker:
+        - image: cimg/node:latest
+    steps:
+        - run:
+            command: |
+              npm install --save-dev expo-cli
+              npx expo login --non-interactive -u zhu.kerry1@gmail.com
+              npx expo publish --non-interactive
 
 workflows:
   heroku_deploy:
     jobs:
-      - run_tests
-      - heroku/deploy-via-git:
-          branch: production
-          force: true
-          filters:
-              branches:
-                only:
-                  - production
+      # - run_tests
+      # - heroku/deploy-via-git:
+      #     branch: production
+      #     force: true
+      #     filters:
+      #         branches:
+      #           only:
+      #             - production
+      - deploy_frontend
