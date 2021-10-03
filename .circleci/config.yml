@@ -27,12 +27,16 @@ jobs:
 workflows:
   heroku_deploy:
     jobs:
-      # - run_tests
-      # - heroku/deploy-via-git:
-      #     branch: production
-      #     force: true
-      #     filters:
-      #         branches:
-      #           only:
-      #             - production
-      - deploy_frontend
+      - run_tests
+      - heroku/deploy-via-git:
+          branch: production
+          force: true
+          filters:
+              branches:
+                only:
+                  - production
+      - deploy_frontend:
+          filters:
+              branches:
+                only:
+                  - production
