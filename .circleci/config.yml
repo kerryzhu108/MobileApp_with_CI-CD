@@ -13,11 +13,12 @@ jobs:
             - run: cd backend && npm install
       - run: cd backend && npm run test
   deploy_frontend:
-    docker:
-        - image: circleci/node:15.14.0
+    executor:
+      name: node/default
     steps:
         - run:
             command: |
+              ls
               cd frontend
               npm install
               npx expo login --non-interactive -u zhu.kerry1@gmail.com
