@@ -8,9 +8,9 @@ const GST = 0.13;
 
 // Get total cost of items in checkout cart.
 router.post("/",
-    body('checkout').isArray(),
-    body('checkout.*.item').isString(),
-    body('checkout.*.quantity').isInt(),
+    body("items").isArray(),
+    body("items.*").isString(),
+    body("discount").isString(),
     function (req, res) {
 
         const errors = validationResult(req);
@@ -18,14 +18,18 @@ router.post("/",
             return res.status(422).json({ errors: errors.array() });
         }
 
-        var total_cost;
+        var subtotal;
         try {
-            total_cost = functions.calculate_total_cost(req.body.checkout, GST);
+            subtotal = functions.calculate_subtotal(req.body.items);
         } catch (error) {
-            return res.status(400).json({ errors: { message: error } })
+            return res.status(400).json({ errors: { message: error.toString() } })
         }
 
-        return res.json({ cost: total_cost.toFixed(2) });
+        var discount = functions.get_discount(subtotal, req.body.discount);
+        var tax = functions.get_tax(subtotal - discount, GST);
+        var total_cost = subtotal + tax + discount;
+
+        return res.json({ subtotal: subtotal.toFixed(2), tax: tax.toFixed(2), discount: "-" + discount.toFixed(2), total: total_cost.toFixed(2) });
     });
 
 module.exports = router
