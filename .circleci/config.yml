@@ -20,6 +20,7 @@ jobs:
             command: |
               npm install --save-dev expo-cli
               npx expo login --non-interactive -u zhu.kerry1@gmail.com
+              npm install expo
               npx expo publish --non-interactive
 
 workflows:
