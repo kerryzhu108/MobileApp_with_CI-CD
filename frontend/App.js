@@ -8,6 +8,7 @@ export default function App() {
   
   const [getAllItems, setAllItems] = React.useState([])
   const [getDiscountCode, setDiscoutCode] = React.useState('')
+  const [getMenuItems, setMenuItems] = React.useState([])
 
   const clickItem = (itemName) => {
     setAllItems(getAllItems.concat(itemName))
@@ -19,9 +20,7 @@ export default function App() {
   }
 
   const items = getItems().then(res => res.json()).then( json =>
-    json.items.map((menuItem, key) => (
-      <MenuItem img={require("./assets/pasta.jpg")} key={key} name={menuItem} handleClick={clickItem}></MenuItem>
-      ))
+    console.log(json)
   )
 
   return (
@@ -30,7 +29,12 @@ export default function App() {
       <Text style={styles.description}>~Authentic Italian Cusine~</Text>
       <Text style={styles.instructions}>Tap and hold to order item</Text>
 
-      <MenuItem img={require("./assets/pasta.jpg")} name="Pasta De La Pasta $12" handleClick={clickItem}></MenuItem>
+      { getMenuItems.map((item, key) => (
+          <MenuItem key={key} img={require("./assets/pasta.jpg")} name={item} handleClick={clickItem}></MenuItem>
+        ))
+      }
+
+      <MenuItem img={require("./assets/pasta.jpg")} name="Pasta De La Pastaaaaaa $12" handleClick={clickItem}></MenuItem>
       <MenuItem img={require("./assets/pizza.jpg")} name="Pizza Mama Mia $13" handleClick={clickItem}></MenuItem>
       <MenuItem img={require("./assets/bread.jpg")} name="Bread Du Broad $5" handleClick={clickItem}></MenuItem>
       <MenuItem img={require("./assets/wine.jpg")} name="Wine Picotto Fine $25" handleClick={clickItem}></MenuItem>
