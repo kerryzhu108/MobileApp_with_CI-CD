@@ -18,7 +18,8 @@ jobs:
     steps:
         - run:
             command: |
-              ls
+              echo ls
+              cd backend
               cd frontend
               npm install
               npx expo login --non-interactive -u zhu.kerry1@gmail.com
