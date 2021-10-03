@@ -16,6 +16,7 @@ jobs:
 workflows:
   heroku_deploy:
     jobs:
+      - run_tests
       - heroku/deploy-via-git:
           branch: production
           filters:
