@@ -34,7 +34,7 @@ export default function App() {
         ))
       }
 
-      <MenuItem img={require("./assets/pasta.jpg")} name="Pasta De La Pastaaaaaa $12" handleClick={clickItem}></MenuItem>
+      <MenuItem img={require("./assets/pasta.jpg")} name="Pasta De La Pasto $12" handleClick={clickItem}></MenuItem>
       <MenuItem img={require("./assets/pizza.jpg")} name="Pizza Mama Mia $13" handleClick={clickItem}></MenuItem>
       <MenuItem img={require("./assets/bread.jpg")} name="Bread Du Broad $5" handleClick={clickItem}></MenuItem>
       <MenuItem img={require("./assets/wine.jpg")} name="Wine Picotto Fine $25" handleClick={clickItem}></MenuItem>
