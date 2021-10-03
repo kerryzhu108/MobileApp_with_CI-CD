@@ -1,0 +1,24 @@
+version: 2.1
+orbs:
+  node: circleci/node@1.1
+  heroku: circleci/heroku@1.2.6
+jobs:
+  run_tests:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/with-cache:
+          steps:
+            - run: cd backend && npm install
+      - run: cd backend && npm run test
+
+workflows:
+  heroku_deploy:
+    jobs:
+      - heroku/deploy-via-git:
+          branch: production
+          filters:
+              branches:
+                only:
+                  - production
