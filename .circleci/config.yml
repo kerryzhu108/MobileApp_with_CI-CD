@@ -39,7 +39,7 @@ workflows:
                 only:
                   - production
       - deploy_frontend:
-          requres:
+          requires:
               - heroku/deploy-via-git
           filters:
               branches:
