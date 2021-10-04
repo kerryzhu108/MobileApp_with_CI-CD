@@ -27,7 +27,7 @@ router.post("/",
 
         var discount = functions.get_discount(subtotal, req.body.discount);
         var tax = functions.get_tax(subtotal - discount, GST);
-        var total_cost = subtotal + tax + discount;
+        var total_cost = subtotal + tax - discount;
 
         return res.json({ subtotal: subtotal.toFixed(2), tax: tax.toFixed(2), discount: "-" + discount.toFixed(2), total: total_cost.toFixed(2) });
     });
