@@ -1,19 +1,19 @@
-var prices = {
-    "pasta de la pasta": 12.00,
-    "pizza mama mia": 13.00,
-    "wine picotto fine": 25.00,
-    "bread du broad": 5.00
+var all_items = {
+    "pasta de la pasta": { price: 12.00, url: "./assets/pasta.jpg" },
+    "pizza mama mia": { price: 13.00, url: "./assets/pizza.jpg" },
+    "wine picotto fine": { price: 25.00, url: "./assets/wine.jpg" },
+    "bread du broad": { price: 5.00, url: "./assets/bread.jpg" }
 }
 
 var discounts = {
     "MAMAMIA": 0.25
 }
 
-// Return all items as a list of strings.
+// Return all items as a list of strings and corresponding image urls.
 function get_all_items() {
     var items = []
-    Object.entries(prices).forEach(([key, value]) => {
-        items.push(key + " $" + value.toFixed(2));
+    Object.entries(all_items).forEach(([key, value]) => {
+        items.push([key, "$" + value['price'].toFixed(2), value["url"]]);
     });
     return items;
 }
@@ -22,8 +22,8 @@ function get_all_items() {
 // Throw an error if the item cannot be found.
 function get_cost(item_name) {
     item_name = item_name.toLowerCase();
-    if (item_name in prices) {
-        return prices[item_name];
+    if (item_name in all_items) {
+        return all_items[item_name]["price"];
     }
     throw new Error("Item " + item_name + " could not be found.");
 }
