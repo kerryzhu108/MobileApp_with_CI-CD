@@ -1,8 +1,8 @@
 var all_items = {
-    "pasta de la pasta": { price: 12.00, url: "https://images.unsplash.com/photo-1598866594230-a7c12756260f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1008&q=80" },
-    "pizza mama mia": { price: 13.00, url: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=962&q=80" },
-    "wine picotto fine": { price: 25.00, url: "https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80" },
-    "bread du broad": { price: 5.00, url: "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80" }
+    "pasta de la pasta": { price: 12.00, url: "https://images.unsplash.com/photo-1598866594230-a7c12756260f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1008&q=80", display_name: "Pasta De La Pasta" },
+    "pizza mama mia": { price: 13.00, url: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=962&q=80", display_name: "Pizza Mama Mia" },
+    "wine picotto fine": { price: 25.00, url: "https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80", display_name: "Wine Picotto Fine" },
+    "bread du broad": { price: 5.00, url: "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80", display_name: "Bread Du Broad" }
 }
 
 var discounts = {
@@ -13,7 +13,7 @@ var discounts = {
 function get_all_items() {
     var items = []
     Object.entries(all_items).forEach(([key, value]) => {
-        items.push([key, "$" + value['price'].toFixed(2), value["url"]]);
+        items.push([value['display_name'], "$" + value['price'].toFixed(2), value["url"]]);
     });
     return items;
 }
