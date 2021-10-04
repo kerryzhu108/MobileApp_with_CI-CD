@@ -1,63 +1,87 @@
 'use strict'
-import React from 'react';
-import { StyleSheet, Text, View, ScrollView, TextInput, Button, Image } from 'react-native';
+import React, { Component } from 'react'
+import { StyleSheet, Text, View, ScrollView, TextInput, Button } from 'react-native';
 import { getItems, getTotalCost } from './api';
 import MenuItem from './components/menu_item.js'
 
-export default function App() {
-  
-  const [getAllItems, setAllItems] = React.useState([])
-  const [getDiscountCode, setDiscoutCode] = React.useState('')
-  const [getMenuItems, setMenuItems] = React.useState([])
+class App extends Component {
 
-  const clickItem = (itemName) => {
-    setAllItems(getAllItems.concat(itemName))
-  }
-  const removeItem = (index) => {
-    let allItems = getAllItems
-    allItems.splice(index, 1)
-    setAllItems([...allItems])
+  state = {
+    selectedItems: [],
+    discountCode: '',
+    menuItems: [],
+    orderInfo: []
   }
 
-  const items = getItems().then(res => res.json()).then( json =>
-    console.log(json)
-  )
+  componentDidMount() {
+    getItems().then(res => res.json()).then( json => {
+      this.setState({menuItems: json.items})
+    })
+  }
 
-  return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.largeFont}>Enrico Pavernitti</Text>
-      <Text style={styles.description}>~Authentic Italian Cusine~</Text>
-      <Text style={styles.instructions}>Tap and hold to order item</Text>
+  clickItem(itemName) {
 
-      { getMenuItems.map((item, key) => (
-          <MenuItem key={key} img={require("./assets/pasta.jpg")} name={item} handleClick={clickItem}></MenuItem>
-        ))
-      }
+    let selectedItems = [...this.state.selectedItems]
+    if (itemName !== 'apply discount') {
+      selectedItems.push(itemName)
+    }
+    getTotalCost(selectedItems, this.state.discountCode).then(res => res.json()).then( json => {
+      this.setState({orderInfo: json})
+    })
 
-      <MenuItem img={require("./assets/pasta.jpg")} name="Pasta De La Pasto $12" handleClick={clickItem}></MenuItem>
-      <MenuItem img={require("./assets/pizza.jpg")} name="Pizza Mama Mia $13" handleClick={clickItem}></MenuItem>
-      <MenuItem img={require("./assets/bread.jpg")} name="Bread Du Broad $5" handleClick={clickItem}></MenuItem>
-      <MenuItem img={require("./assets/wine.jpg")} name="Wine Picotto Fine $25" handleClick={clickItem}></MenuItem>
+    if (itemName !== 'apply discount') {
+      this.setState((previousState) => {
+        return {
+          selectedItems: previousState.selectedItems.concat(itemName) 
+        }
+      });
+    }
+  }
+  removeItem(index) {
+      let array = [...this.state.selectedItems]
+      array.splice(index, 1);
+      this.setState({selectedItems: array});
+  }
 
-      <Text style={styles.largeFont}>Your Order</Text>
-      <Text style={styles.description}>(Tap to remove)</Text>
-      { getAllItems.map((item, key) => (
-          <Text key={key} style={styles.item} onPress={()=>{removeItem(key)}}>{item}</Text>)
-        )
-      }
+  render() {
+    return (
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={styles.largeFont}>Enrico Pavernitti</Text>
+        <Text style={styles.description}>~Authentic Italian Cusine~</Text>
+        <Text style={styles.instructions}>Tap and hold to order item</Text>
 
-      <View style={styles.discount}>
-        <TextInput placeholder="Enter discount code" 
-          style={styles.discountCode}
-          onChangeText={(text)=>{setDiscoutCode(text)}}
-        />
-        <Button title='Apply' onPress={()=>{ 
-          setDiscoutCode('')
-        }}/>
-      </View>
+        { this.state.menuItems.map((item, key) => (
+            <MenuItem key={key} imgURL={item[2]} name={item[0]} price={item[1]} handleClick={this.clickItem.bind(this)}></MenuItem>
+          ))
+        }
 
-    </ScrollView>
-  );
+        <Text style={styles.largeFont}>Your Order</Text>
+        <Text style={styles.description}>(Tap to remove)</Text>
+        { this.state.selectedItems.map((item, key) => (
+            <Text key={key} style={styles.item} onPress={()=>{this.removeItem.bind(this)(key)}}>{item}</Text>)
+          )
+        }
+
+        <View style={styles.discount}>
+          <TextInput placeholder="Enter discount code" 
+            style={styles.discountCode}
+            onChangeText={(text)=>{this.setState({discountCode: text})}}
+            value={this.state.discountCode}
+          />
+          <Button title='Apply' onPress={()=>{        
+            this.clickItem.bind(this)('apply discount')
+            this.setState({discountCode: ''})
+          }}/>
+        </View>
+
+        <Text style={styles.orderInfo}>Subtotal: {this.state.orderInfo.subtotal}</Text>
+        <Text style={styles.orderInfo}>Discount: {this.state.orderInfo.discount}</Text>
+        <Text style={styles.orderInfo}>Tax: {this.state.orderInfo.tax}</Text>
+        <Text style={styles.orderInfo}>Total: {this.state.orderInfo.total}</Text>
+
+      </ScrollView>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -90,4 +114,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
     borderWidth: 1
   },
+  orderInfo: {
+    fontSize: 20,
+    marginBottom: 20
+  }
 });
+
+export default App;

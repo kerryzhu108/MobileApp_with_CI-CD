@@ -9,3 +9,7 @@ Note: This app has been built and tested to run on Android devices.
 ## REST API Documentation and Testing
 - The REST API is accessible from [https://aqueous-eyrie-35955.herokuapp.com](https://aqueous-eyrie-35955.herokuapp.com) and can be tested using Postman or similar applications.
 - Documentation for the REST API built with Node and Express can be found in the backend [README.md](backend/README.md).
+
+## CI/CD
+- Tests are run whenever we push to development or production
+- Merging from Development to Production will deploy the backend to Heroku and update the frontend (may need to rescan the qr code on that expo link)

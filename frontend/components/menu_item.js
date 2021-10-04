@@ -9,7 +9,7 @@ export default class MenuItem extends React.Component {
     return (
       <View>
         <TouchableOpacity delayPressIn={200} delayPressOut={200} onPress={()=>this.props.handleClick(this.props.name)}>
-          <Image source={this.props.img}
+          <Image source={{uri: this.props.imgURL}}
           style={{height: 200, width: 200, marginTop: 20}}/>
         </TouchableOpacity>
         <Text style={{fontSize: 15}} >{this.props.name} {this.props.price}</Text>

@@ -21,6 +21,7 @@ jobs:
             command: |
               cd frontend
               npm install
+              npm install expo-cli
               npx expo login --non-interactive -u zhu.kerry1@gmail.com
               npx expo publish --non-interactive
 
@@ -29,6 +30,8 @@ workflows:
     jobs:
       - run_tests
       - heroku/deploy-via-git:
+          requires:
+              - run_tests
           branch: production
           force: true
           filters:
@@ -36,6 +39,8 @@ workflows:
                 only:
                   - production
       - deploy_frontend:
+          requres:
+              - heroku/deploy-via-git
           filters:
               branches:
                 only:
