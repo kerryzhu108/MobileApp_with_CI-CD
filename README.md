@@ -1,5 +1,5 @@
 # CSC301 Assignment 1
-This app has been built using a React Native frontend and a Node bakend with Express.js.
+This app has been built using a React Native frontend and a Node backend with Express.js.
 
 ## Running the App
 Note: This app has been built and tested to run Android devices.
