@@ -13,5 +13,5 @@ Note: This app has been built and tested to run on Android devices.
 - Documentation for the REST API built with Node and Express can be found in the backend [README.md](backend/README.md).
 
 ## CI/CD
-- Tests are run whenever we push to development or production
-- Merging from Development to Production will deploy the backend to Heroku and update the frontend (may need to rescan the qr code on that expo link)
+- Tests are ran whenever we push/merge to the Development or Production
+- Merging from Development to Production will redeploy the backend to Heroku and update the frontend on Expo (may need reopen)

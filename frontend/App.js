@@ -20,27 +20,24 @@ class App extends Component {
   }
 
   clickItem(itemName) {
-
-    let selectedItems = [...this.state.selectedItems]
+    let newlySelectedItems = [...this.state.selectedItems]
     if (itemName !== 'apply discount') {
-      selectedItems.push(itemName)
+      newlySelectedItems.push(itemName)
+      this.setState({selectedItems: newlySelectedItems})
     }
-    getTotalCost(selectedItems, this.state.discountCode).then(res => res.json()).then( json => {
+    getTotalCost(newlySelectedItems, this.state.discountCode).then(res => res.json()).then( json => {
       this.setState({orderInfo: json})
     })
-
-    if (itemName !== 'apply discount') {
-      this.setState((previousState) => {
-        return {
-          selectedItems: previousState.selectedItems.concat(itemName) 
-        }
-      });
-    }
   }
+  
   removeItem(index) {
-      let array = [...this.state.selectedItems]
-      array.splice(index, 1);
-      this.setState({selectedItems: array});
+      let lessSelectedItems = [...this.state.selectedItems]
+      lessSelectedItems.splice(index, 1);
+      this.setState({selectedItems: lessSelectedItems});
+
+      getTotalCost(lessSelectedItems, this.state.discountCode).then(res => res.json()).then( json => {
+        this.setState({orderInfo: json})
+      })
   }
 
   render() {
