@@ -2,7 +2,7 @@
 This app has been built using a React Native frontend and a Node backend with Express.js.
 
 ## Running the App
-Note: This app has been built and tested to run Android devices.
+Note: This app has been built and tested to run on Android devices.
 1. Install the Expo Go app on your device.
 2. Visit the following [Expo link](https://expo.dev/@kerryzhu/frontend) to run the application.
 
